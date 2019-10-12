@@ -1,10 +1,18 @@
 defmodule ExCurrency.Scraper do
   def parse(body) do
-    body
-    |> Floki.find("span#last_last")
-    |> extract_rate
+    rate = parse_rate(body)
+
+    case is_binary(rate) do
+      true ->
+        {:ok, rate}
+      false ->
+        {:error, :unfetchable}
+      end
   end
 
-  defp extract_rate([{_, _, rate}]), do: {:ok, rate}
-  defp extract_rate(_), do: {:error, :unfetchable}
+  defp parse_rate(body), do: body |> parse_body |> parse_span
+
+  defp parse_body(body), do: Regex.run(~r/<span.*id=.last_last.*/, body) |> List.first
+
+  defp parse_span(span), do: Regex.run(~r/\>(.*?)\<\/span/, span) |> List.last
 end

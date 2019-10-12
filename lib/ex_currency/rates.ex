@@ -5,7 +5,7 @@ defmodule ExCurrency.Rates do
     {from, to} = {String.downcase(from), String.downcase(to)}
 
     with {:ok, response} <- ExCurrency.Fetcher.fetch(from, to),
-         {:ok, [rate]}   <- ExCurrency.Scraper.parse(response.body)
+         {:ok, rate}     <- ExCurrency.Scraper.parse(response.body)
     do
       {:ok, %ExCurrency.Rates{from: from, to: to, rate: rate}}
     else

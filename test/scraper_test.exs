@@ -6,8 +6,7 @@ defmodule ScraperTest do
   test "should extract the rate from the request body" do
     {:ok, fetch} = Fetcher.fetch("usd", "gbp")
     fetch_body = fetch.body
-    {:ok, parse_rate} = Scraper.parse(fetch_body)
-    rate = hd(parse_rate)
+    {:ok, rate} = Scraper.parse(fetch_body)
 
     assert is_binary(rate)
     assert String.length(rate) >= 1

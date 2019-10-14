@@ -4,13 +4,10 @@ An Elixir library for fetching currency exchange rates from [www.investing.com](
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `xeee` to your list of dependencies in `mix.exs`:
-
 ```elixir
 def deps do
   [
-    {:ex_currency, "~> 0.1.0"}
+    {:ex_currency, git: "https://github.com/cpursley/ex_currency.git"}
   ]
 end
 ```
